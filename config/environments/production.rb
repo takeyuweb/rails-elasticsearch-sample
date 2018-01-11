@@ -88,4 +88,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Heroku addons
+  if ENV['BONSAI_URL']
+    Elasticsearch::Model.client = Elasticsearch::Client.new(host: ENV['BONSAI_URL'])
+  elsif ENV['SEARCHBOX_URL']
+    Elasticsearch::Model.client = Elasticsearch::Client.new(host: ENV['SEARCHBOX_URL'])
+  elsif ENV['FOUNDELASTICSEARCH_URL']
+    Elasticsearch::Model.client = Elasticsearch::Client.new(host: ENV['FOUNDELASTICSEARCH_URL'],
+                                                            user: 'elastic',
+                                                            password: ENV['FOUNDELASTICSEARCH_PASSWORD'])
+  end
 end

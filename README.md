@@ -1,24 +1,43 @@
-# README
+# rails-elasticsearch-sample
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+README時間が無いので適当、そのままだと動かないかも
 
-Things you may want to cover:
+## Development
 
-* Ruby version
+```
+docker-compose build
+docker-compose up
+```
 
-* System dependencies
+## Heroku
 
-* Configuration
+```
+heroku create railselasticsearchsample
+git push heroku master
+heroku run rails db:migrate
+```
 
-* Database creation
+### with Elasticsearch
 
-* Database initialization
+https://devcenter.heroku.com/articles/foundelasticsearch
 
-* How to run the test suite
+```
+heroku addons:create foundelasticsearch --elasticsearch-version 5.6.5 --plugins analysis-kuromoji
+heroku addons:open foundelasticsearch
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Shield => Reset password でパスワードが生成されるので、
 
-* Deployment instructions
+```
+heroku config:set FOUNDELASTICSEARCH_PASSWORD=パスワード
+```
 
-* ...
+### Create Index
+
+```
+heroku run rails c
+```
+
+```
+Document.__elasticsearch__.create_index!
+```
