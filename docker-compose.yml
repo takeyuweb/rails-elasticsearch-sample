@@ -12,7 +12,7 @@ volumes:
     driver: 'local'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.5
+    build: ./docker-development/elasticsearch
     container_name: elasticsearch
     ulimits:
       memlock:
@@ -36,7 +36,7 @@ services:
     networks:
       - default
   app:
-    build: ./docker-development
+    build: ./docker-development/app
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     environment:
       MEMCACHE_SERVERS: memcached

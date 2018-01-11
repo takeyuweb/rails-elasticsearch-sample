@@ -6,7 +6,7 @@ class Document < ApplicationRecord
 
   # Index Configuration
   mapping do
-    indexes :title
-    indexes :abstract
+    indexes :title, analyzer: :kuromoji
+    indexes :abstract, analyzer: :kuromoji
   end
 end
