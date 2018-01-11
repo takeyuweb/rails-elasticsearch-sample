@@ -1,26 +1,17 @@
-<h1>Documents#index</h1>
-<p>Find me in app/views/documents/index.html.erb</p>
+<h1>Elasticsearch Sample</h1>
 
 <%= form_with(url: root_path, data: {remote: false}) do |form| %>
-  <%= form.text_field(:keyword) %>
+  <%= form.text_field(:keyword, value: @keyword) %>
   <%= form.submit('Search') %>
+  <p>（全<%= number_with_delimiter(Document.count) %>項）</p>
 <% end %>
 
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Abstract</th>
-  </tr>
-  </thead>
-  <tbody>
+<hr>
+
+<ul>
   <% @documents.each do |document| %>
-    <tr>
-      <td><%= document.id %></td>
-      <td><%= link_to(document.title, document.url) %></td>
-      <td><%= document.abstract %></td>
-    </tr>
+    <li><%= link_to(document.title, document.url) %></li>
   <% end %>
-  </tbody>
-</table>
+</ul>
+
+<%= paginate @documents %>
