@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # このファイルは docker-compose build によってイメージに含められ、
 # コンテナの実行時にフックされます。
