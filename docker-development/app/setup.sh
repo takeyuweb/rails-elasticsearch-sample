@@ -11,9 +11,11 @@ bundle config --local path vendor/bundle
 
 bundle install
 
+# DB versionを問い合わせてエラーが発生すればまだDBが無いと考えて初期設定
+# すでにあればマイグレーション実行
 bin/rails db:version
-if [ $? = 1 ]
+if [ $? = 1 ]; then
   bin/rails db:setup
-then
+else
   bin/rails db:migrate
 fi
